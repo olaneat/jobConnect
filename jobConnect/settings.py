@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     
     #my Apps
     'register',
+    'details',
+    'project',
 
 ]
 
