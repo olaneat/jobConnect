@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from .models import CustomUser
 # Register your models here.
 
-@admin.register(CustomUser)
+'''@admin.register(CustomUser)
 class CustomAdmin(DjangoUserAdmin):
     fieldsets = (
         (None, {'fields':('email', 'password')}),
@@ -27,3 +27,4 @@ class CustomAdmin(DjangoUserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'is_staff')
     search_fields = ('email', 'first_name', 'last_name', )
     ordering = ('email',)
+'''

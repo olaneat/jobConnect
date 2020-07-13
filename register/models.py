@@ -12,44 +12,55 @@ from django.shortcuts import reverse
 class CustomManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, email, password, **extra_fields):
-        if not email:
-            raise ValueError('the email field is required')
+    def _create_user(self, username, email, password=None):
+        if email is None:
+            raise ValueError('email is required')
+
+        if username is None:
+            raise ValueError('username is required')
 
         email = self.normalize_email(email)
-        user = self.model(email =email, **extra_fields)
+        user = self.model(email =email, username=username)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
 
-    def create_user(self, email, password=None, **extra_fields):
+    '''
+        def create_user(self, email, username, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, password, **extra_fields)
+        return self._create_user(email, username, password, **extra_fields)
+        
+    '''
+    def create_superuser(self, username, email, password, **extra_fields):
+        if password is None:
+            raise TypeError('password field is required')
 
-    def create_superuser(self, email, password, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
+        user = self._create_user(username, email, password)
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
+        return user
+        
+        '''extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('superuser must have is_staff=True')
         if extra_fields.get('is_superuser')is not True:
             raise ValueError('superuser must have is_superuser=True')
-        
-        return self._create_user(email, password, **extra_fields)
-
+        '''
 
 class CustomUser(AbstractUser):
-    username = None
     email = models.EmailField(_('email address'), unique=True)
-    username = models.CharField(max_length=255, db_index=True)
+    username = models.CharField(max_length=255, unique=True, db_index=True)
     password = models.CharField(max_length=100)
     created = models.DateField(auto_now=True)
     timestamp = models.DateTimeField(auto_now=True)
     role = models.CharField(max_length=5)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     def __str__(self):
         return self.email
