@@ -11,3 +11,4 @@ this is a start project developed using django
 see the requirment.txt file to see all necesary dependency and use
 pip install -r requirment.txt to install all necesary dependency 
 
+# jobConnect

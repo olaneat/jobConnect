@@ -1,6 +1,6 @@
 
 import os
-
+from .socialmediasettings import GMAIL_SOCIALACCOUNT_PROVIDERS, FACEBOOK_SOCIALACCOUNT_PROVIDERS
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,16 +25,21 @@ INSTALLED_APPS = [
     'rest_framework',
     'allauth',
     'corsheaders',
+    'rest_auth',
+    'django_rest_passwordreset',
     'allauth.account',
     'allauth.socialaccount',
-    
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.twitter',  
+    'rest_auth.registration',
     #my Apps
     'register',
     'details',
     'project',
 
 ]
-
+SOCIALACCOUNT_PROVIDERS = {'facebook': {}, 'google':{}, 'twitter':{}}
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True   
 ACCOUNT_USERNAME_REQUIRED = False
@@ -124,3 +129,5 @@ REST_FRAMEWORK = {
      'register.backends.JWTAuthentication',
      )
 }
+
+SOCIALACCOUNT_PROVIDERS = GMAIL_SOCIALACCOUNT_PROVIDERS
