@@ -11,15 +11,15 @@ class Profile(models.Model):
 	surname = models.CharField(max_length=255, blank=True, null=True)
 	yearOfExperience = models.PositiveIntegerField(default=1)
 	field = models.CharField(max_length=255, blank=True, null=True)
-	occupation = models.CharField(max_length=250, blank=True, null=True)
+	profession = models.CharField(max_length=250, blank=True, null=True)
 	qualification = models.CharField(max_length=255, blank=True, null=True)
 	phoneNumber = models.CharField(max_length=255, blank=True, null=True)
-	email = models.EmailField()
 	city = models.CharField(max_length=255, blank=True, null=True)
 	address = models.CharField(max_length=255, blank=True, null=True)
 	gender = models.CharField(max_length=255, choices=GENDER)
+	
 	class Meta:
-		ordering = ('-firstName', 'surname')
+		ordering = ('surname', '-firstName', )
 		verbose_name = 'Profile'
 		verbose_name_plural = 'Profiles'
 

@@ -26,13 +26,13 @@ class CustomManager(BaseUserManager):
         return user
 
 
-    '''
+    
         def create_user(self, email, username, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', False)
-        extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, username, password, **extra_fields)
+            extra_fields.setdefault('is_staff', False)
+            extra_fields.setdefault('is_superuser', False)
+            return self._create_user(email, username, password, **extra_fields)
         
-    '''
+    
     def create_superuser(self, username, email, password, **extra_fields):
         if password is None:
             raise TypeError('password field is required')

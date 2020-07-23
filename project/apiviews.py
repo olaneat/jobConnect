@@ -7,12 +7,12 @@ from rest_framework import filters
 class ProjectsListView(generics.ListCreateAPIView):
 	serializer_class = ProjectDetialSerializer
 	queryset = Project.objects.all()
-	permission_classes = (IsAuthenticated,)
+	#permission_classes = (IsAuthenticated,)
 
 class ProjectDetailView(generics.RetrieveDestroyAPIView):
 	serializer_class = ProjectDetialSerializer
 	queryset = Project.objects.all()
-	permission_classes = (IsAuthenticated)
+	#permission_classes = (IsAuthenticated)
 
 
 class ProjectSearchSerializer(generics.ListCreateAPIView):

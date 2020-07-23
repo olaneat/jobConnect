@@ -120,14 +120,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+'''
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
         ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
      'register.backends.JWTAuthentication',
-     )
+      'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
 }
-
+'''
 SOCIALACCOUNT_PROVIDERS = GMAIL_SOCIALACCOUNT_PROVIDERS
+

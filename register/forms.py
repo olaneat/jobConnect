@@ -1,4 +1,4 @@
-from django import forms
+'''from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from allauth.account.forms import SignupForm, SetPasswordField, PasswordField
 from django.contrib.auth import get_user_model
@@ -34,3 +34,4 @@ class CustomChangeUserForm(UserChangeForm):
         model = get_user_model()
         fields = "__all__"
 
+'''

@@ -5,8 +5,8 @@ from register.models import CustomUser
 
 class Project(models.Model):
 	title = models.CharField(max_length=255, blank=True, null=True),
-	user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-	description = models.TextField(blank=True, null=True)
+	user = models.ForeignKey(CustomUser, related_name="project", on_delete=models.CASCADE)
+	description = models.TextField(blank=True, null=True, )
 	budget = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True)
 	job_location = models.CharField(max_length=255, blank=True, null=True)
 	bid_deadline = models.DateField(blank=True, null=True)
@@ -22,10 +22,9 @@ class Project(models.Model):
 
 class Bid(models.Model):
 	user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-	job = models.ForeignKey(Project, on_delete=models.CASCADE)
+	projects = models.ForeignKey(Project, related_name="projects", on_delete=models.CASCADE)
 	bidDetail = models.TextField()
-	milestones = models.CharField(max_length=255)
-	created = models.DateTimeField(auto_now=True	)
+	created = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
 		return self.user.email
