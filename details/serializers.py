@@ -1,12 +1,22 @@
 from .models import Profile
 from .constants import GENDER
 from rest_framework import serializers
-from register.serializers import RegistrationSerializer
+
 
 class ProfileSerializer(serializers.ModelSerializer):
-	user = RegistrationSerializer(read_only=True)
+	username = serializers.CharField(source='user.username', read_only=True)
+	email = serializers.EmailField(source='user.email', read_only=True)
 	gender = serializers.ChoiceField(choices = GENDER)
+	
 	class Meta:
 		model = Profile
-		fields = '__all__'
+		fields = (
+			'username', 'surname', 'firstName', 'yearOfExperience', 
+			'profession', 'qualification', 'phoneNumber', 
+			 'city', 'address','dp', 'gender', 'email'
+		 )
+
+	def get_image(self, obj):
+		if obj.dp:
+			return self.dp
 

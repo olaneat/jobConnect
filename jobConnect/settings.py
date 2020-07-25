@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.twitter',  
     'rest_auth.registration',
+    'pwa',
     #my Apps
     'register',
     'details',
