@@ -3,6 +3,6 @@ from .apiviews import ProjectsListView, ProjectDetailView
 
 app_name = 'projects'
 urlpatterns = [
-	path('bid-list', ProjectsListView.as_view(), name="bid"),
+	path('create', ProjectsListView.as_view(), name="bid"),
 	path('bid-detail/<int:pk>', ProjectDetailView.as_view(), name="detail"),
 ]

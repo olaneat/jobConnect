@@ -61,15 +61,18 @@ class RegistrationSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('email', 'username', 'password', 'token', 'project', 'profile', 'bid')
 
-    def create(self, validated_data):
-        profile_data = validated_data.pop('profile')
-        user = CustomUser.objects.create(**validated_data)
-        userProfile = Profile.objects.create(**validated_data)
-        return user
 
-    
-        def create(self, validated_data):
+    def create(self, validated_data):
             return CustomUser.objects._create_user(**validated_data)
+    '''
+        def create(self, validated_data):
+                    profile_data = validated_data.pop('profile')
+                    user = CustomUser.objects.create(**validated_data)
+                    userProfile = Profile.objects.create(**validated_data)
+                    return user
+    '''
+
+        
     
 
     '''def update(self, instance, validated_data):

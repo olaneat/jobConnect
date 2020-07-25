@@ -6,14 +6,14 @@ from .exceptions import ProfileDoesNotExit
 from rest_framework.response import Response
 
 class ProfileListView(generics.ListCreateAPIView):
+	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 	queryset =  Profile.objects.all()
 	serializer_class = ProfileSerializer
-	#permission_classes = (permissions.IsAuthenticated,)
 
 class UpdateProfileView(generics.RetrieveAPIView):
+	permission_classes = (permissions.IsAuthenticated,)
 	queryset  = Profile.objects.all()
 	#serializer_class = ProfileSerializer
-#	permission_classes = (permissions.IsAuthenticated,)
 
 	def retrieve(self, username, request, *args, **kwargs):
 		try:
