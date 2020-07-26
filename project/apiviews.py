@@ -16,7 +16,7 @@ class ProjectDetailView(generics.RetrieveDestroyAPIView):
 
 
 class ProjectSearchSerializer(generics.ListCreateAPIView):
-	permission_classes = (IsAuthenticated)
+	permission_classes = (AllowAny,)
 	search_fields = ['job_location', 'skill_required']
 	filter_backends = (filters.SearchFilter,)
 	serializer_class = ProjectDetialSerializer

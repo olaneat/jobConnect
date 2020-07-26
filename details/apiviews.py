@@ -1,17 +1,17 @@
 from .serializers import ProfileSerializer
 from .models import Profile
-from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework import generics
 from .exceptions import ProfileDoesNotExit
 from rest_framework.response import Response
 
 class ProfileListView(generics.ListCreateAPIView):
-	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+	permission_classes = (IsAuthenticatedOrReadOnly,)
 	queryset =  Profile.objects.all()
 	serializer_class = ProfileSerializer
 
 class UpdateProfileView(generics.RetrieveAPIView):
-	permission_classes = (permissions.IsAuthenticated,)
+	permission_classes = (IsAuthenticated,)
 	queryset  = Profile.objects.all()
 	#serializer_class = ProfileSerializer
 
