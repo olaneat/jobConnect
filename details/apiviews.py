@@ -10,7 +10,7 @@ class ProfileListView(generics.ListCreateAPIView):
 	queryset =  Profile.objects.all()
 	serializer_class = ProfileSerializer
 
-class UpdateProfileView(generics.RetrieveAPIView):
+class UpdateProfileView(generics.RetrieveUpdateDestroyAPIView):
 	permission_classes = (IsAuthenticated,)
 	queryset  = Profile.objects.all()
 	#serializer_class = ProfileSerializer
@@ -26,3 +26,9 @@ class UpdateProfileView(generics.RetrieveAPIView):
 		serializer = self.serializer_class(Profile)
 
 		return Response(serializer.data, status=status.HTTP_200_Ok)
+
+
+class ProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
+	permission_classes = [IsAuthenticatedOrReadOnly]
+	queryset = Profile.objects.all()
+	serializer_class = ProfileSerializer 	

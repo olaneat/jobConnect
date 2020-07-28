@@ -44,8 +44,7 @@ class LoginSerializer(serializers.Serializer):
         }
 
 
-class RegistrationSerializer(serializers.ModelSerializer):
-    
+class RegistrationSerializer(serializers.ModelSerializer):    
     password = serializers.CharField(
         max_length=128,
         min_length=8,
@@ -53,24 +52,56 @@ class RegistrationSerializer(serializers.ModelSerializer):
     )
 
     token = serializers.CharField(max_length=255, read_only=True)
-    bid = BidSerializer(many=True, read_only=True)
+    bid = serializers.StringRelatedField(many=True, read_only=True)
     profile = ProfileSerializer(read_only=True)
-    project = ProjectDetialSerializer(read_only=True, many=True)
+    project = serializers.StringRelatedField(read_only=True, many=True)
 
     class Meta:
         model = CustomUser
         fields = ('email', 'username', 'password', 'token', 'project', 'profile', 'bid')
 
 
-    def create(self, validated_data):
-            return CustomUser.objects._create_user(**validated_data)
     '''
         def create(self, validated_data):
-                    profile_data = validated_data.pop('profile')
-                    user = CustomUser.objects.create(**validated_data)
-                    userProfile = Profile.objects.create(**validated_data)
-                    return user
-    '''
+                     return CustomUser.objects._create_user(**validated_data)'''
+
+
+    '''def create(self, validated_data):
+                        profile_data = validated_data.pop('profile')
+                        user = CustomUser.objects.create(**validated_data)
+                        userProfile = Profile.objects.create(**validated_data)
+                        return user'''
+
+    def create(self, **validated_data):
+        user = CustomUser.objects._create_user(
+        email = validated_data['email'],
+        username = validated_data['username'],
+                        #profile = validated_data['profile'],
+                        #project = validated_data['project'],
+                        #bid = validated_data['bid']
+                                    
+        )            
+        profile_data = validated_data.pop('profile')
+                          
+        user_profile = Profile.objects.create(
+            user = user,
+            firstName = profile_data['firstName'],
+            surname = profile_data['surname'],
+            dp = profile_data['dp'],
+            gender = profile_data['gender'],
+            profession = profile_data['profession'],
+            address = profile_data['address'],
+            city = profile_data['city'],
+            phoneNumber = profile_data['phoneNumber'],
+            yearOfExperience = profile_data['yearOfExperience'],
+            qualification = profile_data['qualification'],
+        ) 
+        return user
+    
+            
+    
+        
+    
 
         
     

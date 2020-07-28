@@ -14,7 +14,7 @@ from rest_auth.social_serializers import TwitterLoginSerializer
 
 from . import permissions 
 
-class UserDetail(generics.RetrieveDestroyAPIView):
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = CustomUser.objects.all()
     serializer_class = RegistrationSerializer
@@ -24,9 +24,6 @@ class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
 
 class RegistrationAPIView(APIView):
-    """
-    Registers a new user.
-    """
     permission_classes = [AllowAny]
     serializer_class = RegistrationSerializer
 
@@ -40,8 +37,8 @@ class RegistrationAPIView(APIView):
             },
             status=status.HTTP_201_CREATED,
         )
-
-
+    
+        
 class LoginAPIView(APIView):
     permission_classes = [AllowAny]
     serializer_class = LoginSerializer

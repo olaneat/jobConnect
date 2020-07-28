@@ -1,6 +1,7 @@
 
 import os
 from .socialmediasettings import GMAIL_SOCIALACCOUNT_PROVIDERS, FACEBOOK_SOCIALACCOUNT_PROVIDERS
+from .rest_settings import REST_FRAMEWORK
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -9,7 +10,6 @@ SECRET_KEY = 'n!hp8*zyd%0kr%o$8n!by)r@(ydmjk76q$aq$@6qr_6l46w4%g'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 
 INSTALLED_APPS = [
@@ -50,14 +50,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 AUTH_USER_MODEL = 'register.CustomUser'
 SITE_ID = 1
 
-REST_FRAMEWORK = {
-   'DEFAULT_AUTHENTICATION_CLASSES': (
-       'rest_framework_simplejwt.authentication.JWTAuthentication',
-   ),
-   'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated'
-   ),
-}
+REST_FRAMEWORK = REST_FRAMEWORK
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -7,6 +7,7 @@ urlpatterns = [
 	path('account/', include('register.urls', namespace='register')),
     path('admin/', admin.site.urls),
     path('profile/', include('details.urls', namespace="detail")),
+    path('auth', include('rest_framework.urls')),
     re_path(r'^/rest_auth/password/reset/', include('rest_auth.urls')),
     path('/password/reset/confirm/', include('rest_auth.urls')),
     path('/password/change/', include('rest_auth.urls')),
