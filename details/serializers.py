@@ -4,16 +4,17 @@ from rest_framework import serializers
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+	user = serializers.ReadOnlyField(source='user.username')
 	username = serializers.CharField(source='user.username', read_only=True)
 	email = serializers.EmailField(source='user.email', read_only=True)
 	gender = serializers.ChoiceField(choices = GENDER)
-	
+
 	class Meta:
 		model = Profile
 		fields = (
-			'username', 'surname', 'firstName', 'yearOfExperience', 
-			'profession', 'qualification', 'phoneNumber', 
-			 'city', 'address','dp', 'gender', 'email'
+			'username', 'surname', 'firstName', 'yearOfExperience',
+			'profession', 'qualification', 'phoneNumber',
+			 'city', 'address','dp', 'gender', 'email', 'user'
 		 )
 
 	def get_image(self, obj):

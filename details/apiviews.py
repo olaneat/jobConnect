@@ -10,6 +10,9 @@ class ProfileListView(generics.ListCreateAPIView):
 	queryset =  Profile.objects.all()
 	serializer_class = ProfileSerializer
 
+	def perform_create(self, serializer):
+		serializer.save(user=self.request.user)
+
 class UpdateProfileView(generics.RetrieveAPIView):
 	permission_classes = (IsAuthenticated,)
 	queryset  = Profile.objects.all()
@@ -21,8 +24,8 @@ class UpdateProfileView(generics.RetrieveAPIView):
 				user__username =username
 			)
 		except Profile.DoesNotExist:
-			raise valueError('User profile does not exist')
-		
+			raise ValueError('User profile does not exist')
+
 		serializer = self.serializer_class(Profile)
 
 		return Response(serializer.data, status=status.HTTP_200_Ok)
