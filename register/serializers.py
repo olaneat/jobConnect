@@ -59,52 +59,16 @@ class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('email', 'username', 'password', 'token', 'project', 'profile', 'bid')
-
-
-    '''
-        def create(self, validated_data):
-                     return CustomUser.objects._create_user(**validated_data)'''
-
+    
+    
+    
 
     '''def create(self, validated_data):
                         profile_data = validated_data.pop('profile')
                         user = CustomUser.objects.create(**validated_data)
                         userProfile = Profile.objects.create(**validated_data)
                         return user'''
-
-    def create(self, **validated_data):
-        user = CustomUser.objects._create_user(
-        email = validated_data['email'],
-        username = validated_data['username'],
-                        #profile = validated_data['profile'],
-                        #project = validated_data['project'],
-                        #bid = validated_data['bid']
-                                    
-        )            
-        profile_data = validated_data.pop('profile')
-                          
-        user_profile = Profile.objects.create(
-            user = user,
-            firstName = profile_data['firstName'],
-            surname = profile_data['surname'],
-            dp = profile_data['dp'],
-            gender = profile_data['gender'],
-            profession = profile_data['profession'],
-            address = profile_data['address'],
-            city = profile_data['city'],
-            phoneNumber = profile_data['phoneNumber'],
-            yearOfExperience = profile_data['yearOfExperience'],
-            qualification = profile_data['qualification'],
-        ) 
-        return user
-    
-            
-    
         
-    
-
-        
-    
 
     '''def update(self, instance, validated_data):
                     profile_data = validated_data.pop('profile')

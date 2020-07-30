@@ -50,7 +50,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 AUTH_USER_MODEL = 'register.CustomUser'
 SITE_ID = 1
 
-REST_FRAMEWORK = REST_FRAMEWORK
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

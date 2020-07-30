@@ -11,7 +11,6 @@ from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from rest_auth.social_serializers import TwitterLoginSerializer
-
 from . import permissions 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -27,13 +26,15 @@ class RegistrationAPIView(APIView):
     permission_classes = [AllowAny]
     serializer_class = RegistrationSerializer
 
-    def post(self, request):
+    def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(
             {
                 'token': serializer.data.get('token', None),
+                'username': serializer.data.get('username', None),
+                'email':serializer.data.get('email', None)
             },
             status=status.HTTP_201_CREATED,
         )
