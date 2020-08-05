@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework_jwt.settings import api_settings
@@ -38,9 +39,7 @@ class LoginSerializer(serializers.Serializer):
             )
 
         return {
-            'email':user.email,
             'token': user.token,
-            'username': user.username
         }
 
 
@@ -60,15 +59,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('email', 'username', 'password', 'token', 'project', 'profile', 'bid')
     
-    
-    
 
-    '''def create(self, validated_data):
-                        profile_data = validated_data.pop('profile')
-                        user = CustomUser.objects.create(**validated_data)
-                        userProfile = Profile.objects.create(**validated_data)
-                        return user'''
-        
+    def create(self, validated_data):
+        return CustomUser.objects._create_user(**validated_data)
 
     '''def update(self, instance, validated_data):
                     profile_data = validated_data.pop('profile')

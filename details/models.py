@@ -28,12 +28,15 @@ class Profile(models.Model):
 		return self.user.username
 
 
-@receiver(post_save, sender=CustomUser)
+'''@receiver(post_save, sender=CustomUser)
 def create_user_profile(sender, instance=None, created=False, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-    instance.profile.save()
 
+@receiver(post_save, sender=CustomUser)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+'''
 @receiver(pre_delete, sender=CustomUser)
 def delete_user_profile(sender, instance=None, **kwargs):
 	if instance:

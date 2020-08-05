@@ -1,7 +1,7 @@
 
 import os
 from .socialmediasettings import GMAIL_SOCIALACCOUNT_PROVIDERS, FACEBOOK_SOCIALACCOUNT_PROVIDERS
-from .rest_settings import REST_FRAMEWORK
+from .rest_settings import REST_FRAMEWORK, SIMPLE_JWT
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -89,6 +89,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+SIMPLE_JWT = SIMPLE_JWT
 
 
 AUTH_PASSWORD_VALIDATORS = [
