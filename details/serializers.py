@@ -19,8 +19,10 @@ class ProfileSerializer(serializers.ModelSerializer):
 		)
 
 	def create(self, validated_data, instance=None):
-		user = validated_data.pop('user')
-		user = CustomUser.objects.create(**validated_data)
+		if 'user' in validated_data:
+			user = validated_data.pop('user')
+		else:
+			user = CustomUser.objects.create(**validated_data)
 		profile, created_profile = Profile.objects.update_or_create(user=user, **validated_data)
 		return profile
 

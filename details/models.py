@@ -35,8 +35,8 @@ def create_user_profile(sender, instance=None, created=False, **kwargs):
 
 @receiver(post_save, sender=CustomUser)
 def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-'''
+    instance.profile.save()'''
+
 @receiver(pre_delete, sender=CustomUser)
 def delete_user_profile(sender, instance=None, **kwargs):
 	if instance:
