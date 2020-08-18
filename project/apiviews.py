@@ -4,12 +4,22 @@ from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticate
 from .serializers import ProjectDetialSerializer, BidSerializer
 from rest_framework import filters
 
-class ProjectsListView(generics.ListCreateAPIView):
+class CreateProjectsView(generics.CreateAPIView):
 	permission_classes = (IsAuthenticatedOrReadOnly,)
 	serializer_class = ProjectDetialSerializer
 	queryset = Project.objects.all()
 
-class ProjectDetailView(generics.RetrieveUpdateDestroyAPIView):
+class ProjectsListView(generics.ListAPIView):
+	permission_classes = (AllowAny,)
+	serializer_class = ProjectDetialSerializer
+	queryset = Project.objects.all()
+
+class ProjectDetailView(generics.RetrieveUpdateAPIView):
+	permission_classes = (IsAuthenticatedOrReadOnly,)	
+	serializer_class = ProjectDetialSerializer
+	queryset = Project.objects.all()
+
+class DeleteProjectView(generics.DestroyAPIView):
 	permission_classes = (IsAuthenticatedOrReadOnly,)	
 	serializer_class = ProjectDetialSerializer
 	queryset = Project.objects.all()
