@@ -8,6 +8,8 @@ from django.db.models.signals import post_save
 from allauth.account.signals import user_signed_up
 from django.utils.translation import ugettext_lazy as  _
 from django.shortcuts import reverse
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 class CustomManager(BaseUserManager):
     use_in_migrations = True
@@ -26,13 +28,13 @@ class CustomManager(BaseUserManager):
         return user
 
 
-    
+
         def create_user(self, email, username, password=None, **extra_fields):
             extra_fields.setdefault('is_staff', False)
             extra_fields.setdefault('is_superuser', False)
             return self._create_user(email, username, password, **extra_fields)
-        
-    
+
+
     def create_superuser(self, username, email, password, **extra_fields):
         if password is None:
             raise TypeError('password field is required')
@@ -42,7 +44,7 @@ class CustomManager(BaseUserManager):
         user.is_superuser = True
         user.save()
         return user
-        
+
         '''extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -67,18 +69,22 @@ class CustomUser(AbstractUser):
 
     @property
     def token(self):
-        return self._generate_jwt_token()
-    
+        return self._get_token_for_user()
+
     def _generate_jwt_token(self):
        dt = datetime.now() + timedelta(minutes=180)
        token = jwt.encode({
            'id': self.pk,
            'exp': int(dt.strftime('%s'))
-       }, settings.SECRET_KEY, algorithm='HS256') 
+       }, settings.SECRET_KEY, algorithm='HS256')
        return token.decode('utf-8')
 
+    def _get_token_for_user(self):
+
+        return RefreshToken.for_user(self).access_token
+
     class Meta:
-        ordering = ('email',)    
+        ordering = ('email',)
 
 
     objects = CustomManager()
